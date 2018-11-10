@@ -1,7 +1,6 @@
 <!--
   - Copyright(c) Oflane Software 2017. All Rights Reserved.
   -->
-
 <template>
   <el-dialog :title="title" :visible.sync="visible">
     <fac-form ref="formItem" :conf="form" :model="model" :page="this"/>
@@ -11,7 +10,6 @@
     </div>
   </el-dialog>
 </template>
-
 <script>
   import fata from '~/fata'
   const defaultItems = [

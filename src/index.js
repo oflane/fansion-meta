@@ -11,7 +11,6 @@ import metaDefaultMetaGroupList from './meta/default/meta-group-list'
 import metaDefaultMetaGroupEdit from './meta/default/meta-group-edit'
 import metaOfentityOfeMetaEdit from './meta/ofentity/ofe-meta-edit'
 import metaFacFacMetaEdit from './meta/fac/fac-meta-edit'
-
 /**
  * 安装方法
  * @param Vue vue对象

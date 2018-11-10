@@ -5,11 +5,12 @@ var path = require('path')
 var webpack = require('webpack')
 var ProgressBarPlugin = require('progress-bar-webpack-plugin')
 var nodeExternals = require('webpack-node-externals')
-
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 module.exports = {
+  mode: 'production',
   entry: {app: './src/index.js'},
   output: {
     path: path.resolve(process.cwd(), './lib'),
@@ -17,7 +18,7 @@ module.exports = {
     filename: 'fansion-meta.js',
     chunkFilename: '[id].js',
     libraryTarget: 'umd',
-    library: 'fansion-meta',
+    library: 'FansionMeta',
     umdNamedDefine: true
   },
   resolve: {
@@ -31,11 +32,12 @@ module.exports = {
   },
   externals: [
     {
-      vue: 'vue',
+      vue: 'Vue',
       'element-ui': 'ELEMENT',
-      'fansion-base': 'fansion-base',
-      'fansion-fac': 'fansion-fac',
-      'fansion-fui': 'fansion-fui'
+      'vue-router': 'VueRouter',
+      'fansion-base': 'FansionBase',
+      'fansion-fac': 'FansionFac',
+      'fansion-ui': 'FansionUI'
     }, nodeExternals()
   ],
   module: {
@@ -100,6 +102,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new ProgressBarPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
