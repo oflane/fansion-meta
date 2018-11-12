@@ -18,7 +18,7 @@ module.exports = {
     filename: 'fansion-meta.js',
     chunkFilename: '[id].js',
     libraryTarget: 'umd',
-    library: 'FansionMeta',
+    library: 'fansion-meta',
     umdNamedDefine: true
   },
   resolve: {
@@ -32,14 +32,17 @@ module.exports = {
   },
   externals: [
     {
-      vue: 'Vue',
-      'element-ui': 'ELEMENT',
-      'vue-router': 'VueRouter',
-      'fansion-base': 'FansionBase',
-      'fansion-fac': 'FansionFac',
-      'fansion-ui': 'FansionUI'
+      vue: 'vue',
+      'element-ui': 'element-ui',
+      'vue-router': 'vue-router',
+      'fansion-base': 'fansion-base',
+      'fansion-fac': 'fansion-fac',
+      'fansion-ui': 'fansion-ui'
     }, nodeExternals()
   ],
+  optimization: {
+    minimize: false
+  },
   module: {
     rules: [
       {
