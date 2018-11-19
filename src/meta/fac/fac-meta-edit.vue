@@ -27,14 +27,13 @@
   import fata from '~/fata'
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
-  import fac from 'fansion-fac'
 
   const {fillRestPath, getJson} = fase.rest
   const state = fase.state
   const handler = fanui.handler
 
   const urls = {
-    load: 'meta/load/:id',
+    load: '/meta/load/:id',
     save: '/meta/save'
   }
   export default {
@@ -136,7 +135,7 @@
        */
       initPage () {
         let vm = this
-        vm.templates = Object.entries(fac.templates.data)
+        vm.templates = Object.entries(temetas.data).map(([k, v]) => ({ value: k, label: v.name || v.name || k }))
         vm.loadMeta()
       },
       /**
@@ -238,10 +237,11 @@
       loadMeta () {
         let vm = this
         let id = this.$route.params.id
+        let catagory = this.$route.params.catagory
         vm.formLoading = true
         vm.pageLoading = true
         if (handler.isAdd(id)) {
-          vm.metaModel = {metaType: 'com.oflane.fac.model.FacMeta'}
+          vm.metaModel = {metaType: 'com.oflane.fac.model.FacMeta', catagory}
           vm.pageLoading = false
           return
         }

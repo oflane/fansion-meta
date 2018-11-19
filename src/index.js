@@ -18,15 +18,16 @@ import metaFacFacMetaEdit from './meta/fac/fac-meta-edit'
  */
 const install = function (Vue, opts = {}) {
   // 页面注册
-  let pages = {
+  let pageComps = {
     '/meta/default/meta-list/:type': metaDefaultMetaList,
     '/meta/default/meta-edit/:type/:id': metaDefaultMetaEdit,
     '/meta/default/meta-group-list/:type': metaDefaultMetaGroupList,
     '/meta/default/meta-group-edit/:type/:group': metaDefaultMetaGroupEdit,
     '/meta/ofentity/ofe-meta-edit/:type/:group': metaOfentityOfeMetaEdit,
+    '/meta/fac/fac-meta-edit/:catagory/:id': metaFacFacMetaEdit,
     '/meta/fac/fac-meta-edit/:id': metaFacFacMetaEdit
   }
-  fase.init({pages: {pages}, routes: !opts.disableRoute ? Object.keys(pages) : null})
+  fase.init({pages: {pageComps}, routes: !opts.disableRoute ? Object.keys(pageComps) : null})
   fata.addFormControls(fataOptions.formControls)
   fata.addConfeta(fataOptions.confetas)
   init(opts)
@@ -36,9 +37,9 @@ const install = function (Vue, opts = {}) {
  * @param opts
  */
 const init = (opts = {}) => {
-  opts.temeta && temetas.addTemeta(opts.temeta)
-  opts.fata && fata.addConfeta(opts.fata)
-  opts.formor && fata.addFormControls(opts.fata)
+  opts.temetas && temetas.addTemeta(opts.temetas)
+  opts.fatas && fata.addConfeta(opts.fatas)
+  opts.formCtls && fata.addFormControls(opts.formCtls)
 }
 /**
  * fac组件模块
@@ -46,7 +47,9 @@ const init = (opts = {}) => {
  * @version 1.0 2017-8-15
  */
 export default {
+  name: 'fansion-meta',
   fata,
   temetas,
-  install
+  install,
+  init
 }
