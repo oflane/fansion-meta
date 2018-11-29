@@ -16,7 +16,7 @@
         </el-tab-pane>
       </el-tabs>
       <div class="fac-meta-component">
-        <fac ref="facMetaComponent" :meta="compFata" :model="compModel" :page="this"/>
+        <fac ref="facMetaComponent" :meta="compFata" :data="compModel" :owner="this"/>
       </div>
     </div>
   </fac-layout>
@@ -153,16 +153,16 @@
         //  获取模板配置定义
         let conf = temetas.getTemeta(template)
         vm.temeta = conf
-        let comps = conf.comps
+        let comps = conf ? conf.comps : []
         vm.comps = comps
-        if (template !== vm.model.template) {
-          if (template === vm.originTemplate) {
+        if (template === vm.originTemplate) {
+          if (vm.metaData) {
             vm.model = JSON.parse(vm.metaData.content)
-          } else {
-            vm.model = conf.defaultModel || {}
           }
-          state.reset(vm, 'model')
+        } else {
+          vm.model = conf.defaultModel || {}
         }
+        state.reset(vm, 'model')
         if (comps && comps.length > 0) {
           vm.setCurrentTab(comps[0].name)
         } else {
@@ -172,6 +172,7 @@
       // 刷新当前模板配置数据
       refreshData (data) {
         let vm = this
+        vm.metaData = data
         if (data.content) {
           state.reset(vm, 'model')
           let m = JSON.parse(data.content)
@@ -185,8 +186,8 @@
             template: m.template
           }
           vm.originTemplate = m.template
-          vm.loadTemeta()
           vm.model = m
+          vm.loadTemeta()
         } else {
           vm.metaModel = {
             name: data.name,
@@ -198,7 +199,6 @@
           this.model = {}
         }
         state.reset(vm, 'metaModel')
-        this.metaData = data
       },
 
       /**
@@ -222,13 +222,16 @@
             compFata = Object.assign({}, cb, compFata)
           }
         }
-        vm.compFata = compFata
         let compModel = vm.model[tabName]
         if (!compModel) {
           compModel = {}
           vm.$set(vm.model, tabName, compModel)
+          if (!state.isChange(vm, 'model')) {
+            state.reset(vm, 'model')
+          }
         }
         vm.compModel = compModel
+        vm.compFata = compFata
       },
       /**
        * 加载模板配置数据
@@ -279,7 +282,7 @@
           let template = data.template
           delete data.template
           data.content = JSON.stringify({template, ...vm.model})
-          handler.saveData = ({
+          handler.saveData({
             vm,
             url: urls.save,
             model: data,

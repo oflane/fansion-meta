@@ -10,8 +10,8 @@
 <template>
   <div class="page-layout" v-loading="pageLoading">
     <div class="layout-header clearfix">
-      <div class="el-col-12"><button-bar :conf="buttons" :page="page"/></div>
-      <div class="el-col-12"><search :conf="search" :page="page"/></div>
+      <div class="el-col-12"><fac-button-bar :conf="buttons" :page="page"/></div>
+      <div class="el-col-12"><fac-search :conf="search" :page="page"/></div>
     </div>
     <div class="layout-body" v-loading="loading">
       <fac-card-list :model="model.content" :conf="card" :page="page"/>

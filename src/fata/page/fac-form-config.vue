@@ -10,7 +10,7 @@
           模型:
         </label>
         <div class="bar_control">
-          <fac-reference :model="model.modelMeta" field="value" labelField="label" />
+          <fac-reference :model="model" field="modelMetaName" labelField="modelMetaLabel" />
         </div>
       </div>
       <el-button-group class="pull-right">
@@ -48,6 +48,8 @@
 
 <script>
   import facFormItem from './fac-form-item'
+  import fanui from 'fansion-ui'
+
   export default {
     name: 'FacFormConfig',
     props: {
@@ -113,7 +115,7 @@
             label: '操作',
             width: '150px',
             align: 'center',
-            template: '<el-button @click="page.onEdit(scope)" type="text" size="small">查看</el-button><el-button @click="page.onDelete(scope)" type="text" size="small">删除</el-button>'
+            template: fanui.generator.columnButton([{text: '查看', click: 'onEdit(scope)'}, {text: '删除', click: 'onDelete(scope)'}])
           }
         ]
       }
@@ -135,9 +137,6 @@
             ]
           }
         ]
-      }
-      if (!model.modelMeta) {
-        model.modelMeta = {}
       }
       let group = model.groups[currentTab]
       return {
@@ -278,7 +277,7 @@
   /deep/ .tab-form{
     float: left;
     display: block;
-    width: 700px;
+    width: 720px;
     .fac-form {
       height: 70px;
       .form-body{

@@ -10,7 +10,7 @@
           模型:
         </label>
         <div class="bar_control">
-          <fac-reference :model="modelMeta" field="value" labelField="label" />
+          <fac-reference :model="model" field="modelMetaName" labelField="modelMetaNameLabel" />
         </div>
       </div>
       <el-button-group class="pull-right">
@@ -20,13 +20,12 @@
         <el-button type="primary" icon="fa fa-trash" size="small" @click="onDeletes"　title="删除列"/>
       </el-button-group>
     </div>
-    <fac-table ref="columnTable" slot="body" :conf="table" :model="columns" :page="this"　:selection=1 />
+    <fac-table ref="columnTable" slot="body" :conf="table" :model="model.columns" :page="this"　:selection=1 />
   </fac-layout>
 </template>
 
 <script>
   import facTableItem from './fac-table-item'
-  import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
   export default {
@@ -78,35 +77,14 @@
             label: '操作',
             width: '150px',
             align: 'center',
-            template: fanui.generator.columnButton([{text: '查看', click: 'page.onEdit(scope)'}, {text: '删除', click: 'page.onDelete(scope)'}])
+            template: fanui.generator.columnButton([{text: '查看', click: 'onEdit(scope)'}, {text: '删除', click: 'onDelete(scope)'}])
           }
         ]
       }
-      let modelMeta = Object.assign({}, model.modelMeta)
       return {
         multipleSelection: [],
         layout,
-        table,
-        columns,
-        modelMeta
-      }
-    },
-    watch: {
-      modelMeta (val) {
-        if (val === null || fase.util.isNull(val.value)) {
-          this.$delete(this.model, 'modelMeta')
-        } else {
-          this.$set(this.model, 'modelMeta', val)
-        }
-      },
-      columns (val) {
-        console.log(val)
-        if (val === null || val.length === 0) {
-          this.$delete(this.model, 'columns')
-        } else {
-          this.$set(this.model, 'columns', val)
-        }
-        console.log(this.model)
+        table
       }
     },
     methods: {

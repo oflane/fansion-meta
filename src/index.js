@@ -5,6 +5,7 @@ import fata from './fata'
 import fataOptions from './fata/options'
 import temetas from './temetas'
 import fase from 'fansion-base'
+import fanui from 'fansion-ui'
 import metaDefaultMetaList from './meta/default/meta-list'
 import metaDefaultMetaEdit from './meta/default/meta-edit'
 import metaDefaultMetaGroupList from './meta/default/meta-group-list'
@@ -30,6 +31,7 @@ const install = function (Vue, opts = {}) {
   fase.init({pages: {pageComps}, routes: !opts.disableRoute ? Object.keys(pageComps) : null})
   fata.addFormControls(fataOptions.formControls)
   fata.addConfeta(fataOptions.confetas)
+  Vue.use(fanui)
   init(opts)
 }
 /**

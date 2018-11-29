@@ -368,7 +368,7 @@
     }
   }
 </script>
-<style lang="less">
+<style lang="less" scoped>
   .fac-form-group{
     position: relative;
     overflow: hidden;

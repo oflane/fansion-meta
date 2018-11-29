@@ -21,6 +21,7 @@
 
 <script>
   import facXqueryItem from './fac-xquery-item'
+  import fanui from 'fansion-ui'
   export default {
     name: 'FacXqueryConfig',
     props: {
@@ -71,12 +72,9 @@
             label: '操作',
             width: '150px',
             align: 'center',
-            template: '<el-button @click="page.onEdit(scope)" type="text" size="small">查看</el-button><el-button @click="page.onDelete(scope)" type="text" size="small">删除</el-button>'
+            template: fanui.generator.columnButton([{text: '查看', click: 'onEdit(scope)'}, {text: '删除', click: 'onDelete(scope)'}])
           }
         ]
-      }
-      if (!model.modelMeta) {
-        model.modelMeta = {}
       }
       let configForm = {
         cols: 2,
@@ -84,7 +82,8 @@
           {
             type: 'reference',
             label: '模型:',
-            field: 'modelMeta.value',
+            field: 'modelMetaName',
+            labelField: 'modelMetaLabel',
             placeholder: '请选择元数据模型'
           },
           {
@@ -204,7 +203,7 @@
     .bar-element {
       float: left;
       display: block;
-      width: 700px;
+      width: 720px;
       label{
         color: #303133;
       }

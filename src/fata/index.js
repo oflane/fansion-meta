@@ -131,7 +131,7 @@ const buildFata = (type, tag, modelName = 'model', cols = 1) => {
   if (typeof (conf) === 'function' || isVueComponent(conf)) {
     return buildSubPageFata(conf, modelName)
   }
-  let items = Array.isArray(conf) ? conf.items : conf
+  let items = Array.isArray(conf) ? conf : conf.items
   return buildFormFata(items.filter(v => !v.tag || !tag || v.tag.indexOf(tag) > -1), modelName)
 }
 
