@@ -51,13 +51,13 @@ const getConfetaItems = name => {
  * @param name 组件类型名
  * @returns {*}
  */
-const getFormTagItems = name => getConfetaItems().filter(v => v.tag !== 'self')
+const getFormTagItems = name => getConfetaItems(name).filter(v => v.tag !== 'self')
 /**
  * 获取组件配置的元数据的自身特征配置项目
  * @param name 组件类型名
  * @returns {*}
  */
-const getSelfTagItems = name => getConfetaItems().filter(v => v.tag !== 'self')
+const getSelfTagItems = name => getConfetaItems(name).filter(v => v.tag !== 'self')
 /**
  * 构建
  * @param component
@@ -102,7 +102,7 @@ const buildFormFata = (items, modelName, cols = 1) => ({
   methods: {
     validate (cb) {
       let sub = this.$refs['subPage']
-      if (sub.validate) {
+      if (sub && sub.validate) {
         sub.validate(cb)
       } else {
         cb.call(this, true)

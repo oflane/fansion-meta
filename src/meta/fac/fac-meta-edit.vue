@@ -224,7 +224,7 @@
         }
         let compModel = vm.model[tabName]
         if (!compModel) {
-          compModel = {}
+          compModel = {compType: tab.type}
           vm.$set(vm.model, tabName, compModel)
           if (!state.isChange(vm, 'model')) {
             state.reset(vm, 'model')

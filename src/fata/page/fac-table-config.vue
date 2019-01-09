@@ -41,6 +41,7 @@
         columns = model.columns
       } else {
         columns = []
+        model.columns = columns
       }
       let layout = {
         header: {
@@ -98,14 +99,14 @@
         return v === 'custom' ? 'primary' : v ? 'success' : 'info'
       },
       onAdd () {
-        this.$showDialog({params: {isAdd: true, ':listModel': this.columns}, component: facTableItem})
+        this.$showDialog({params: {isAdd: true, ':listModel': this.model.columns}, component: facTableItem})
       },
       onEdit (scope) {
-        this.$showDialog({params: {':isAdd': false, ':listModel': this.columns, ':currentIndex': scope.$index}, component: facTableItem})
+        this.$showDialog({params: {':isAdd': false, ':listModel': this.model.columns, ':currentIndex': scope.$index}, component: facTableItem})
       },
       onDelete (scope) {
         let i = scope.$index
-        let columns = this.columns
+        let columns = this.model.columns
         this.$confirm('删除字段, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

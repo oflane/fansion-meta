@@ -49,7 +49,23 @@
 <script>
   import facFormItem from './fac-form-item'
   import fanui from 'fansion-ui'
-
+  function initModel (model) {
+    if (model.compType && model.compType !== 'fac-form') {
+      return model
+    }
+    if (!Array.isArray(model.groups)) {
+      model.groups = [{
+        items: []
+      }]
+    } else if (model.groups.length === 0) {
+      model.groups.push({
+        items: []
+      })
+    } else if (!Array.isArray(model.groups[0].items)) {
+      model.groups[0].items = []
+    }
+    return model
+  }
   export default {
     name: 'FacFormConfig',
     props: {
@@ -57,19 +73,8 @@
       model: Object
     },
     data () {
-      let model = this.model
+      let model = initModel(this.model)
       let currentTab = 0
-      if (!Array.isArray(model.groups)) {
-        model.groups = [{
-          items: []
-        }]
-      } else if (model.groups.length === 0) {
-        model.groups.push({
-          items: []
-        })
-      } else if (!Array.isArray(model.groups[0].items)) {
-        model.groups[0].items = []
-      }
       let layout = {
         header: {
           slot: 'header',
@@ -138,7 +143,7 @@
           }
         ]
       }
-      let group = model.groups[currentTab]
+      let group = model.groups ? model.groups[currentTab] : {items: []}
       return {
         multipleSelection: [],
         layout,
@@ -151,7 +156,16 @@
     },
     watch: {
       currentTab (val, oldVal) {
-        this.group = this.model.groups[val * 1]
+        if (this.model.groups) {
+          this.group = this.model.groups[val * 1]
+        }
+      },
+      model (val) {
+        let model = initModel(val)
+        let i = this.currentTab * 1
+        if (model.groups && model.groups > i) {
+          this.group = model.groups[i]
+        }
       }
     },
     methods: {

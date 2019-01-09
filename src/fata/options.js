@@ -77,7 +77,7 @@ const confetas = {
     },
     {
       type: 'tags',
-      field: 'options',
+      field: ':options',
       label: '选项数据',
       ':single': false
     },
@@ -88,6 +88,11 @@ const confetas = {
     {
       field: 'opUrl',
       label: '选项地址'
+    },
+    {
+      type: 'switch-box',
+      field: 'disabled',
+      label: '不可用'
     },
     {
       type: 'switch-box',
@@ -309,12 +314,13 @@ const confetas = {
   xquery: facXqueryConfig,
   tree: [
     {
-      field: ':data',
-      label: '数据源'
-    },
-    {
       field: 'nodeKey',
       label: '节点键值'
+    },
+    {
+      type: 'textarea',
+      field: 'label',
+      label: '显示内容'
     },
     {
       type: 'switch-box',
@@ -337,13 +343,12 @@ const confetas = {
       label: '自动展开父节点'
     },
     {
-      type: 'textarea',
-      field: 'renderContent',
-      label: '显示内容'
-    },
-    {
       field: 'defaultExpandedKeys',
       label: '默认展开键值列表'
+    },
+    {
+      field: ':iconClass',
+      label: '图标'
     }
   ]
 }
