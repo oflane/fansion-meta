@@ -4,6 +4,7 @@
 import facFormConfig from './page/fac-form-config'
 import facTableConfig from './page/fac-table-config'
 import facXqueryConfig from './page/fac-xquery-config'
+
 /**
  * 基于input控件的配置项
  * @type {*[]}
@@ -29,9 +30,20 @@ const input = [
     tag: 'self'
   },
   {
+    label: '值',
+    field: 'value',
+    tag: 'self'
+  },
+  {
     label: '大小',
     field: 'size',
     tag: 'self'
+  },
+  {
+    type: 'switch-box',
+    label: '忽略',
+    field: 'ignore',
+    tag: 'form'
   }
 ]
 
@@ -45,8 +57,18 @@ const confetas = {
   }],
   span: [
     {
+      label: '内容',
+      field: '#content'
+    },
+    {
       field: 'field',
       label: '字段',
+      tag: 'form'
+    },
+    {
+      type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
       tag: 'form'
     },
     {
@@ -55,16 +77,107 @@ const confetas = {
       tag: 'self'
     }
   ],
-  'switch-box': {
-    tagName: 'el-switch',
-    props: ['ref', 'vModel', 'activeText', 'inactiveText', 'activeValue', 'inactiveValue', 'activeColor', 'inactiveColor'],
-    default: {
-      ':activeValue': true,
-      ':inactiveValue': false,
-      activeColor: '#13ce66',
-      inactiveColor: '#ff4949'
+  'switch-box': [
+    {
+      label: '字段',
+      field: 'field',
+      tag: 'form'
+    },
+    {
+      label: '打开值',
+      field: 'activeText'
+    },
+    {
+      label: '关闭值',
+      field: 'inactiveValue'
+    },
+    {
+      label: '打开显示文本',
+      field: 'activeText'
+    },
+    {
+      label: '关闭显示文本',
+      field: 'inactiveText'
+    },
+    {
+      label: '打开显示颜色',
+      field: 'activeColor'
+    },
+    {
+      label: '关闭显示颜色',
+      field: 'inactiveColor'
+    },
+    {
+      label: '值绑定',
+      field: 'vModel',
+      tag: 'self'
+    },
+    {
+      label: '值',
+      field: 'value',
+      tag: 'self'
+    },
+    {
+      label: '不可用',
+      field: 'disabled',
+      type: 'switch-box'
+    },
+    {
+      type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
+      tag: 'form'
     }
-  },
+  ],
+  tags: [
+    {
+      label: '字段',
+      field: 'field',
+      tag: 'form'
+    },
+    {
+      label: '打开值',
+      field: 'activeText'
+    },
+    {
+      label: '是否单值',
+      field: 'single',
+      type: 'switch-box'
+    },
+    {
+      label: '值字段名',
+      field: 'valueField'
+    },
+    {
+      label: '显示属性名',
+      field: 'labelField'
+    },
+    {
+      label: '只读值列表',
+      field: 'readonlyValue'
+    },
+    {
+      label: '值绑定',
+      field: 'vModel',
+      tag: 'self'
+    },
+    {
+      label: '值',
+      field: 'value',
+      tag: 'self'
+    },
+    {
+      label: '不可用',
+      field: 'disabled',
+      type: 'switch-box'
+    },
+    {
+      type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
+      tag: 'form'
+    }
+  ],
   combo: [
     {
       field: 'field',
@@ -101,6 +214,12 @@ const confetas = {
     },
     {
       type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
+      tag: 'form'
+    },
+    {
+      type: 'switch-box',
       field: 'multiple',
       label: '多选'
     },
@@ -115,8 +234,63 @@ const confetas = {
       tag: 'self'
     },
     {
+      label: '值',
+      field: 'value',
+      tag: 'self'
+    },
+    {
       field: 'size',
       label: '大小',
+      tag: 'self'
+    },
+    {
+      field: 'itemValue',
+      label: '选项值字段'
+    },
+    {
+      field: 'itemLabel',
+      label: '选项显示字段'
+    }
+  ],
+  comtext: [
+    {
+      field: 'field',
+      label: '字段',
+      tag: 'form'
+    },
+    {
+      type: 'tags',
+      field: ':options',
+      label: '选项数据',
+      ':single': false
+    },
+    {
+      field: 'opCode',
+      label: '选项编码'
+    },
+    {
+      field: 'opUrl',
+      label: '选项地址'
+    },
+    {
+      type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
+      tag: 'form'
+    },
+    {
+      type: 'switch-box',
+      field: 'multiple',
+      label: '多选'
+    },
+    {
+      label: '值绑定',
+      field: 'vModel',
+      tag: 'self'
+    },
+    {
+      label: '值',
+      field: 'value',
       tag: 'self'
     },
     {
@@ -153,6 +327,12 @@ const confetas = {
       label: '不可用'
     },
     {
+      type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
+      tag: 'form'
+    },
+    {
       field: 'name',
       label: '域名称'
     },
@@ -171,8 +351,18 @@ const confetas = {
       tag: 'self'
     },
     {
+      label: '值',
+      field: 'value',
+      tag: 'self'
+    },
+    {
       label: '显示绑定',
-      field: 'label.sync',
+      field: 'showLabel.sync',
+      tag: 'self'
+    },
+    {
+      label: '显示值',
+      field: 'showLabel',
       tag: 'self'
     },
     {
@@ -234,14 +424,30 @@ const confetas = {
       tag: 'self'
     },
     {
+      field: 'vModel',
+      label: '值绑定',
+      tag: 'self'
+    },
+    {
       type: 'switch-box',
       field: 'readonly',
       label: '只读'
     },
     {
-      field: 'vModel',
-      label: '值绑定',
+      label: '值',
+      field: 'value',
       tag: 'self'
+    },
+    {
+      type: 'switch-box',
+      field: 'disabled',
+      label: '不可用'
+    },
+    {
+      type: 'switch-box',
+      label: '忽略',
+      field: 'ignore',
+      tag: 'form'
     }
   ],
   'el-pagination': [
@@ -299,6 +505,7 @@ const confetas = {
     {
       type: 'tags',
       field: 'items',
+      single: true,
       label: '检索项目'
     },
     {
@@ -373,6 +580,10 @@ const formControls = [
   {
     value: 'textarea',
     label: '大文本'
+  },
+  {
+    value: 'comtext',
+    label: '选项文本'
   },
   {
     value: 'span',

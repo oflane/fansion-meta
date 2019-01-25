@@ -6,12 +6,7 @@
   <fac-layout :conf="layout">
     <div slot="header">
       <div class="bar-element" >
-        <label class="bar_label">
-          模型:
-        </label>
-        <div class="bar_control">
-          <fac-reference :model="model" field="modelMetaName" labelField="modelMetaLabel" />
-        </div>
+        <fac-form :conf="configForm" :model="model"　label-width="80px"/>
       </div>
       <el-button-group class="pull-right">
         <el-button type="primary" icon="fa fa-plus" size="small" @click="onAddGroup" title="添加表单分组">添加分组</el-button>
@@ -31,12 +26,12 @@
         </el-tabs>
         <div slot="body">
           <div class="tab-form" >
-            <fac-form ref="configForm" :conf="configForm" :model="group"　label-width="80px"/>
+            <fac-form ref="configGroupForm" :conf="configGroupForm" :model="group"　label-width="80px"/>
           </div>
           <el-button-group class="pull-right">
             <el-button type="primary" icon="fa fa-plus" size="small" @click="onAdd" title="添加列" circle/>
             <el-button type="primary" icon="fa fa-cubes" size="small" title="从模型添加" circle/>
-            <el-button type="primary" icon="fa fa-cubes" size="small" title="调整列顺序"/>
+            <el-button type="primary" icon="fa fa-sort" size="small" title="调整列顺序" @click="onSortItems"/>
             <el-button type="primary" icon="fa fa-trash" size="small" @click="onDeletes"　title="删除列" circle/>
           </el-button-group>
         </div>
@@ -53,6 +48,7 @@
     if (model.compType && model.compType !== 'fac-form') {
       return model
     }
+    model.states || (model.states = [{value: 'default', label: '默认'}])
     if (!Array.isArray(model.groups)) {
       model.groups = [{
         items: []
@@ -104,13 +100,11 @@
         columns: [
           {
             'label': '字段名',
-            'field': 'field',
-            'sortable': true
+            'field': 'field'
           },
           {
             'label': '显示名',
-            'field': 'label',
-            'sortable': true
+            'field': 'label'
           },
           {
             'label': '控件类型',
@@ -125,6 +119,24 @@
         ]
       }
       let configForm = {
+        cols: 2,
+        items: [
+          {
+            type: 'reference',
+            label: '模型:',
+            field: 'modelMetaName',
+            labelField: 'modelMetaLabel',
+            placeholder: '请选择元数据模型'
+          },
+          {
+            type: 'tags',
+            label: '表单状态:',
+            field: 'states',
+            readonlyValue: 'default'
+          }
+        ]
+      }
+      let configGroupForm = {
         cols: 2,
         items: [
           {
@@ -149,6 +161,7 @@
         layout,
         table,
         configForm,
+        configGroupForm,
         tabLayout,
         currentTab,
         group
@@ -207,27 +220,31 @@
         return '[无标题]'
       },
       onAdd () {
-        let i = this.currentTab * 1
-        this.$showDialog({params: {isAdd: true, ':listModel': this.model.groups[i].items}, component: facFormItem})
+        this.$showDialog({params: {isAdd: true, ':listModel': this.group.items, ':states': this.model.states}, component: facFormItem})
       },
       onEdit (scope) {
-        let i = this.currentTab * 1
-        this.$showDialog({params: {':isAdd': false, ':listModel': this.model.groups[i].items, ':currentIndex': scope.$index}, component: facFormItem})
+        this.$showDialog({params: {':isAdd': false, ':listModel': this.group.items, ':states': this.model.states, ':currentIndex': scope.$index}, component: facFormItem})
+      },
+      onSortItems () {
+        this.$showDialog({params: {':model': this.group.items, vm: this, '@ok': 'params.vm.onReturnSortItems()'}, component: '/ui/page/sort-dialog'})
+      },
+      onReturnSortItems () {
+        this.group.items = [... this.group.items]
       },
       onDelete (scope) {
         let i = scope.$index
-        let model = this.model
-        let items = model.items
+        let group = this.group
+        let items = group.items
         this.$confirm('删除字段, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           items.splice(i, 1)
-          this.$set(model, 'items', items)
+          this.$set(group, 'items', items)
         })
       },
-      onDeletes (i) {
+      onDeletes () {
         if (this.multipleSelection.length === 0) {
           this.$message({
             type: 'info',
@@ -235,9 +252,9 @@
           })
           return
         }
-        let items = this.model.items
+        let items = this.group.items
         let sels = this.multipleSelection
-        let itemsTable = this.$refs['itemsTable' + i]
+        let itemsTable = this.$refs['itemsTable']
         this.$confirm('删除字段, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -248,7 +265,7 @@
         })
       },
       validate (cb) {
-        this.$refs['configForm'].validate(cb)
+        this.$refs['configGroupForm'].validate(cb)
       }
     }
   }
@@ -258,12 +275,28 @@
 
   /deep/ .layout-bar {
     padding: 10px 30px;
-    height: 52px;
+    height: 70px;
     width: 100%;
     margin: 0px;
     position: relative;
+    .fac-form {
+      height: 70px;
+      .form-body{
+        padding: 0;
+        height: 100%;
+      }
+      .el-col {
+        padding-left: 0!important;
+        padding-right: 0!important;
+      }
+      .el-form-item{
+        margin-bottom: 0;
+      }
+    }
     .bar-element {
-      display:inline-block;
+      float: left;
+      display: block;
+      width: 720px;
       label{
         color: #303133;
       }
