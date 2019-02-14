@@ -38,6 +38,10 @@
   }
   export default {
     name: 'FacMetaEdit',
+    props: {
+      id: String,
+      category: String
+    },
     data () {
       let layout = {
         header: 'header',
@@ -100,7 +104,9 @@
       let compFata = {}
       let templates = []
       let compModel = {}
+      let meteId = this.id || this.$route.params.id
       return {
+        meteId,
         mainForm,
         layout,
         templates,
