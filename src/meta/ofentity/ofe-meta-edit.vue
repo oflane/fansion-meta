@@ -105,6 +105,7 @@
   import fanui from 'fansion-ui'
 
   const {fillRestPath, getJson} = fase.rest
+  const sure = fase.util.sure
   const state = fase.state
   const constant = fase.constant
   const handler = fanui.handler
@@ -113,7 +114,7 @@
     group: 'meta/load-group/:type/:group',
     load: 'meta/load/:id',
     delete: 'meta/delete/:id',
-    save: '/meta/save'
+    save: '/meta/save/com.oflane.fasp.ofmodel.entity.of-entity-meta'
   }
   export default {
     name: 'OfEntityMetaEdit',
@@ -480,10 +481,8 @@
             data.content = JSON.stringify(vm.model)
             data.name = vm.model.name
             data.label = vm.model.label
-            saveTab = data.id
-            if (!saveTab) {
-              saveTab = constant.ADD_ID
-            }
+            saveTab = data.id || constant.ADD_ID
+            return data
           },
           success: (res) => {
             let item = res.data
@@ -534,20 +533,8 @@
               vm.$message({type: 'success', message: '删除成功!'})
             }
           },
-          valid: () => {
-            if (handler.isAdd(id)) {
-              if (vm.group.length === 1) {
-                vm.$router.back()
-              }
-              vm.removeGroup(id)
-              return false
-            }
-            let isMain = vm.group[0].id === id
-            if (isMain && vm.group.length === 1) {
-              vm.$message('该组还存在子配置，不能删除主配置！')
-              return false
-            }
-          },
+          // 当前页签为新增时如果有一个页签返回，否则前端删除返回false，如果不是新增页签判断页签数大于１时并且删除的为主页签，提示不允许删除，否则校验通过
+          valid: () => handler.isAdd(id) ? sure(vm.group.length === 1 && vm.$router.back()) && sure(vm.removeGroup(id)) && false : !(vm.group.length > 1 && vm.group[0].id === id && sure(vm.$message('该组还存在子配置，不能删除主配置！'))),
           loading: 'pageLoading',
           msg: '确认删除当前配置?'
         })
