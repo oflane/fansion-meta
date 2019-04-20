@@ -92,6 +92,11 @@
             field: 'template',
             '@change': 'page.loadTemeta()',
             ':options': 'page.templates'
+          },
+          {
+            type: 'input',
+            label: '访问地址: ',
+            field: 'option1'
           }
         ]
       }
