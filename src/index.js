@@ -28,7 +28,14 @@ const install = function (Vue, opts = {}) {
     '/meta/fac/fac-meta-edit/:catagory/:id': metaFacFacMetaEdit,
     '/meta/fac/fac-meta-edit/:id': metaFacFacMetaEdit
   }
-  fase.init({pages: {pageComps}, routes: !opts.disableRoute ? Object.keys(pageComps) : null})
+  fase.init({
+    pages: {
+      pageComps
+    },
+    router: {
+      routes: !opts.disableRoute ? Object.keys(pageComps) : null,
+    }
+  })
   fata.addFormControls(fataOptions.formControls)
   fata.addConfeta(fataOptions.confetas)
   Vue.use(fanui)
