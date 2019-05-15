@@ -28,10 +28,9 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const {fillRestPath, getJson} = fase.rest
+  const { fillRestPath, getJson } = fase.rest
   const state = fase.state
   const handler = fanui.handler
-
   const urls = {
     load: '/meta/load/:id',
     save: '/meta/save'
@@ -60,7 +59,7 @@
         }
       ]
       let mainForm = {
-        cols: 3,
+        cols: 4,
         items: [
           {
             type: 'input',
@@ -193,6 +192,7 @@
             name: data.name,
             label: data.label,
             metaType: data.metaType,
+            option1: data.option1,
             ts: data.ts,
             template: m.template
           }
@@ -204,6 +204,7 @@
             name: data.name,
             label: data.label,
             metaType: data.metaType,
+            option1: data.option1,
             ts: data.ts,
             template: null
           }
@@ -235,7 +236,7 @@
         }
         let compModel = vm.model[tabName]
         if (!compModel) {
-          compModel = {compType: tab.type}
+          compModel = { compType: tab.type }
           vm.$set(vm.model, tabName, compModel)
           if (!state.isChange(vm, 'model')) {
             state.reset(vm, 'model')
@@ -255,11 +256,11 @@
         vm.formLoading = true
         vm.pageLoading = true
         if (handler.isAdd(id)) {
-          vm.metaModel = {metaType: 'com.oflane.fac.model.FacMeta', catagory}
+          vm.metaModel = { metaType: 'com.oflane.fac.model.FacMeta', catagory }
           vm.pageLoading = false
           return
         }
-        return getJson(fillRestPath(urls.load, {id})).then(res => {
+        return getJson(fillRestPath(urls.load, { id })).then(res => {
           vm.refreshData(res)
         }).finally(() => {
           vm.pageLoading = false
@@ -292,7 +293,7 @@
           let data = Object.assign({}, vm.metaModel)
           let template = data.template
           delete data.template
-          data.content = JSON.stringify({template, ...vm.model})
+          data.content = JSON.stringify({ template, ...vm.model })
           handler.saveData({
             vm,
             url: urls.save,
@@ -305,12 +306,9 @@
               })
             },
             fail: () => {
-              vm.$message({
-                type: 'error',
-                message: '保存失败!'
-              })
+              vm.$message({ type: 'error', message: '保存失败!' })
             },
-            loading: 'pageLoading'})
+            loading: 'pageLoading' })
         }
         vm.$refs['mainForm'].validate(valid => {
           if (!valid) {

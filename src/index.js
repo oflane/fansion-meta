@@ -1,6 +1,7 @@
 /*
  * Copyright(c) Oflane Software 2017. All Rights Reserved.
  */
+import 'vue'
 import fata from './fata'
 import fataOptions from './fata/options'
 import temetas from './temetas'
