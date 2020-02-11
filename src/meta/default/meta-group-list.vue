@@ -21,9 +21,9 @@
       return {
         urls: {
           type: 'meta-type/load-by-name/:type',
-          query: '/meta/find-group/:type',
+          query: '/meta/group/find/:type',
           edit: '/meta/default/meta-group-edit/:type/:group',
-          delete: '/meta/delete-group/:id'
+          delete: '/meta/group/delete/:id'
         }
       }
     },

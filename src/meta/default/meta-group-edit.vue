@@ -25,7 +25,7 @@
   const constant = fase.constant
   const urls = {
     type: 'meta-type/load-by-name/:type',
-    group: 'meta/load-group/:type/:group',
+    group: 'meta/group/load/:type/:group',
     load: 'meta/load/:id',
     delete: 'meta/delete/:id',
     save: '/meta/save'

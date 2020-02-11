@@ -111,7 +111,7 @@
   const handler = fanui.handler
   const urls = {
     type: 'meta-type/load-by-name/:type',
-    group: 'meta/load-group/:type/:group',
+    group: 'meta/group/load/:type/:group',
     load: 'meta/load/:id',
     delete: 'meta/delete/:id',
     save: '/meta/save/com.oflane.fasp.ofmodel.entity.of-entity-meta'
