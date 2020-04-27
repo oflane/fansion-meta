@@ -20,7 +20,7 @@ import metaFacFacMetaEdit from './meta/fac/fac-meta-edit'
  */
 const install = function (Vue, opts = {}) {
   // 页面注册
-  let pageComps = {
+  const pageComps = {
     '/meta/default/meta-list/:type': metaDefaultMetaList,
     '/meta/default/meta-edit/:type/:id': metaDefaultMetaEdit,
     '/meta/default/meta-group-list/:type': metaDefaultMetaGroupList,
@@ -34,7 +34,7 @@ const install = function (Vue, opts = {}) {
       pageComps
     },
     router: {
-      routes: !opts.disableRoute ? Object.keys(pageComps) : null,
+      routes: !opts.disableRoute ? Object.keys(pageComps) : null
     }
   })
   fata.addFormControls(fataOptions.formControls)
