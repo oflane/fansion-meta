@@ -25,7 +25,7 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const {fillRestPath, getJson} = fase.rest
+  const {furl, gson} = fase.rest
   const constant = fase.constant
   const DataLoader = fase.DataLoader
   export default {
@@ -92,10 +92,10 @@
     },
     methods: {
       initPage () {
-        let params = this.$route.params
-        let vm = this
-        vm.loader.setUrl(fillRestPath(vm.urls.query, params))
-        getJson(fillRestPath(vm.urls.type, params)).then((res) => {
+        const params = this.$route.params
+        const vm = this
+        vm.loader.setUrl(furl(vm.urls.query, params))
+        gson(furl(vm.urls.type, params)).then((res) => {
           vm.type = res
           if (!vm.type.detailUrl) {
             vm.type.detailUrl = vm.urls.edit
@@ -103,18 +103,18 @@
         }).finally(() => {
           vm.pageLoading = false
         })
-        this.queryData()
+        vm.queryData()
       },
       queryData () {
         this.loading = true
         return this.loader.load()
       },
       add () {
-        let url = fillRestPath(this.type.detailUrl, {id: constant.ADD_ID, type: this.type.name})
+        let url = furl(this.type.detailUrl, {id: constant.ADD_ID, type: this.type.name})
         this.$router.push(url)
       },
       edit (row) {
-        let url = fillRestPath(this.type.detailUrl, {id: row.id, type: this.type.name})
+        let url = furl(this.type.detailUrl, {id: row.id, type: this.type.name})
         this.$router.push(url)
       },
       del (row) {

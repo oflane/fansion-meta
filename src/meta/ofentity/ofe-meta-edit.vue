@@ -104,7 +104,7 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const {fillRestPath, getJson} = fase.rest
+  const {furl, gson} = fase.rest
   const sure = fase.util.sure
   const state = fase.state
   const constant = fase.constant
@@ -359,7 +359,7 @@
       },
       loadType () {
         let vm = this
-        return getJson(fillRestPath(urls.type, vm.params)).then(() => {
+        return gson(furl(urls.type, vm.params)).then(() => {
           handler.setPageTitle(vm, handler.isAdd(vm.params.group) ? '新增OF实体集' : '编辑OF实体集')
         })
       },
@@ -369,7 +369,7 @@
           this.addMeta()
           return
         }
-        return getJson(fillRestPath(urls.group, vm.params)).then((res) => {
+        return gson(furl(urls.group, vm.params)).then((res) => {
           vm.group = res
           vm.setCurrentTab(res[0].id)
         })
@@ -458,7 +458,7 @@
           vm.formLoading = false
           return
         }
-        return getJson(fillRestPath(urls.load, {id})).then(res => {
+        return gson(furl(urls.load, {id})).then(res => {
           vm.refreshData(res)
         }).finally(() => {
           vm.formLoading = false

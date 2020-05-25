@@ -607,7 +607,7 @@ const formControls = [
   }
 ]
 /**
- * 添加注释
+ * 配置注册信息
  * @author Paul.Yang E-mail:yaboocn@qq.com
  * @version 1.0 2011/1/18
  */

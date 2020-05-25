@@ -13,7 +13,7 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const {fillRestPath, getJson} = fase.rest
+  const {furl, gson} = fase.rest
   const handler = fanui.handler
   const urls = {
     type: 'meta-type/load-by-name/:type',
@@ -110,7 +110,7 @@
         let isAdd = handler.isAdd(id)
         if (isAdd) {
           if (!urls.add) {
-            getJson(fillRestPath(urls.type, {type})).then((res) => {
+            gson(furl(urls.type, {type})).then((res) => {
               handler.setPageTitle(vm, `元数据新增-${res.label}`)
             }).finally(() => {
               vm.pageLoading = false
@@ -122,15 +122,15 @@
           url = urls.add
           vm.pageState = 'state_add'
         } else {
-          url = fillRestPath(urls.load, {id})
+          url = furl(urls.load, {id})
           handler.setPageTitle(vm, `元数据编辑-${typeName}`)
           vm.pageState = 'state_edit'
         }
         Promise.all([
-          getJson(fillRestPath(urls.type, {type})).then((res) => {
+          gson(furl(urls.type, {type})).then((res) => {
             handler.setPageTitle(vm, isAdd ? `元数据新增-${res.label}` : `元数据编辑-${res.label}`)
           }),
-          getJson(url).then(res => {
+          gson(url).then(res => {
             res.content = JSON.parse(res.content)
             vm.model = res
           })

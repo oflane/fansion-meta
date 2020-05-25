@@ -8,7 +8,7 @@ import fase from 'fansion-base'
  * 模板元数据中心
  * @type {{}}
  */
-let temetas = {}
+const temetas = {}
 
 /**
  * 添加模板元数据

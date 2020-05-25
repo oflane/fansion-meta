@@ -19,7 +19,7 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const {fillRestPath, getJson, post} = fase.rest
+  const {furl, gson, post} = fase.rest
   const state = fase.state
   const handler = fanui.handler
   const constant = fase.constant
@@ -145,7 +145,7 @@
       },
       loadType () {
         let vm = this
-        return getJson(fillRestPath(urls.type, vm.params)).then((res) => {
+        return gson(furl(urls.type, vm.params)).then((res) => {
           handler.setPageTitle(vm.isAdd() ? `元数据新增-${res.label}` : `元数据编辑-${res.label}`)
           vm.metaLabel = res.label
         })
@@ -156,7 +156,7 @@
           this.addMeta()
           return
         }
-        return getJson(fillRestPath(urls.group, vm.params)).then((res) => {
+        return gson(furl(urls.group, vm.params)).then((res) => {
           vm.group = res
           vm.setCurrentTab(res[0].id)
         })
@@ -254,7 +254,7 @@
           vm.formLoading = false
           return
         }
-        return getJson(fillRestPath(urls.load, {id})).then(res => {
+        return gson(furl(urls.load, {id})).then(res => {
           vm.refreshData(res)
         }).finally(() => {
           vm.formLoading = false

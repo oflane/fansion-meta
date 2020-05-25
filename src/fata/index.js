@@ -16,7 +16,7 @@ const isVueComponent = fase.util.isVueComponent
  * 组件的配置元数据，用来生成组件的配置界面
  * @type {{}}
  */
-let confetas = {}
+const confetas = {}
 
 /**
  * 处理注册的组件配置元数据,如果组件存在form属性则加入到表单控件列表中
@@ -42,7 +42,7 @@ const getConfeta = name => confetas[name]
  * @returns {*}
  */
 const getConfetaItems = name => {
-  let items = getConfeta(name) || []
+  const items = getConfeta(name) || []
   return Array.isArray(items) ? items : items.items
 }
 
@@ -71,7 +71,7 @@ const buildSubPageFata = (component, modelName) => ({
   },
   methods: {
     validate (cb) {
-      let sub = this.$refs['subPage']
+      const sub = this.$refs.subPage
       if (sub.validate) {
         sub.validate(cb)
       } else {
@@ -101,7 +101,7 @@ const buildFormFata = (items, modelName, cols = 1) => ({
   ],
   methods: {
     validate (cb) {
-      let sub = this.$refs['subPage']
+      const sub = this.$refs.subPage
       if (sub && sub.validate) {
         sub.validate(cb)
       } else {
@@ -121,7 +121,7 @@ const buildFormFata = (items, modelName, cols = 1) => ({
  */
 const buildFata = (type, tag, modelName = 'model', cols = 1) => {
   type = type.toDash()
-  let conf = getConfeta(type)
+  const conf = getConfeta(type)
   if (!conf) {
     return null
   }
@@ -131,7 +131,7 @@ const buildFata = (type, tag, modelName = 'model', cols = 1) => {
   if (typeof (conf) === 'function' || isVueComponent(conf)) {
     return buildSubPageFata(conf, modelName)
   }
-  let items = Array.isArray(conf) ? conf : conf.items
+  const items = Array.isArray(conf) ? conf : conf.items
   return buildFormFata(items.filter(v => !v.tag || !tag || v.tag.indexOf(tag) > -1), modelName)
 }
 
@@ -157,7 +157,7 @@ const buildCompFata = (type, modelName, cols) => buildFata(type, 'self', modelNa
  * 表单中可以包含的控件
  * @type {Array}
  */
-let formControls = []
+const formControls = []
 /**
  * 添加表单中可以使用的控件名称
  * @param data 表单中可以使用的控件名称或集合

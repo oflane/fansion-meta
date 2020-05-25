@@ -12,7 +12,7 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const fillRestPath = fase.rest.fillRestPath
+  const furl = fase.rest.furl
   const constant = fase.constant
   export default {
     name: 'DefaultMetaGroupList',
@@ -29,18 +29,18 @@
     },
     methods: {
       add () {
-        let url = fillRestPath(this.type.detailUrl, {group: constant.ADD_ID, type: this.type.name})
+        let url = furl(this.type.detailUrl, {group: constant.ADD_ID, type: this.type.name})
         this.$router.push(url)
       },
       edit (row) {
-        let url = fillRestPath(this.type.detailUrl, {group: row.name, type: this.type.name})
+        let url = furl(this.type.detailUrl, {group: row.name, type: this.type.name})
         this.$router.push(url)
       },
       del (row) {
         let vm = this
         fanui.handler.delRow({
           vm,
-          url: fillRestPath(this.urls.delete, {group: row.name, type: vm.type.name}),
+          url: furl(this.urls.delete, {group: row.name, type: vm.type.name}),
           row,
           success: () => {
             vm.$message({type: 'success', message: '删除成功!'})

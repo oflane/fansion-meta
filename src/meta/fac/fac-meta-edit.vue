@@ -28,7 +28,7 @@
   import fase from 'fansion-base'
   import fanui from 'fansion-ui'
 
-  const { fillRestPath, getJson } = fase.rest
+  const { furl, gson } = fase.rest
   const state = fase.state
   const handler = fanui.handler
   const urls = {
@@ -260,7 +260,7 @@
           vm.pageLoading = false
           return
         }
-        return getJson(fillRestPath(urls.load, { id })).then(res => {
+        return gson(furl(urls.load, { id })).then(res => {
           vm.refreshData(res)
         }).finally(() => {
           vm.pageLoading = false
