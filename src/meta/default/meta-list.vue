@@ -30,6 +30,7 @@
   const DataLoader = fase.DataLoader
   export default {
     name: 'DefaultMetaList',
+    label: '默认的元数据列表',
     data () {
       let search = {
         'xclass': 'pull-right',
