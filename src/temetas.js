@@ -4,6 +4,7 @@
 
 import fase from 'fansion-base'
 
+const {simulatePromise, isPromise, sure} = fase.util
 /**
  * 模板元数据中心
  * @type {{}}
@@ -42,15 +43,20 @@ const addTag = fase.builder.collection(tags)
  * @param name 模板名称
  * @returns {*}
  */
-const getTemeta = (name, type) => {
+const getTemeta = (name, cb, type) => {
+  let rs = null
   if (type) {
-    return temetas[type] ? temetas[type][name] : null
-  }
-  for (const t of Object.entries(temetas)) {
-    if (t[1] && t[1][name]) {
-      return t[1][name]
+    rs = temetas[type] ? temetas[type][name] : null
+  } else {
+    for (const t of Object.values(temetas)) {
+      if (t[1] && t[1][name]) {
+        rs = t[1][name]
+        break
+      }
     }
   }
+  isPromise(rs) ? rs.then(cb) : cb(rs)
+  return rs
 }
 
 /**
@@ -67,7 +73,14 @@ const getTypeTemetas = (type) => temetas[type]
  * @param tags 标签
  * @returns {any}
  */
-const filterData = (data, keyword, tags) => data ? Object.entries(data).filter(([k, v]) => (!keyword || (v.name && v.name.indexOf(keyword) > -1)) && (!tags || tags.length === 0 || (v.tags && v.tags.filter(t => tags.indexOf(t) > -1).length === tags.length))) : []
+const filterData = (data, keyword, tags) => data ? data.filter(([k, v, t]) => sure(temetas[t][k] = v) && (!keyword || (v.name && v.name.indexOf(keyword) > -1)) && (!tags || tags.length === 0 || (v.tags && v.tags.filter(t => tags.indexOf(t) > -1).length === tags.length))) : []
+
+/**
+ * 映射成promise对象
+ * @param data 数据对象
+ * @returns {*[]}
+ */
+const map2Promise = (data, type) => data ? Object.entries(data).map(([k, v]) => isPromise(v) ? v.then(r => [k, r, type]) : simulatePromise([k, v, type])) : []
 /**
  * 过滤对应的模板数据
  * @param keyword 关键字
@@ -75,9 +88,11 @@ const filterData = (data, keyword, tags) => data ? Object.entries(data).filter((
  * @param type 类型
  * @returns {*}
  */
-const filter = (keyword, tags, type) => {
+const filter = (cb, keyword, tags, type) => {
   tags && (tags = Array.isArray(tags) ? tags : [tags])
-  return type ? filterData(getTypeTemetas(type), keyword, tags) : Object.values(temetas).map(t => filterData(t, keyword, tags)).reduce((p, c) => p.concat(c))
+  cb && Promise.all(type ? map2Promise(getTypeTemetas(type), type) : Object.entries(temetas).map(([k, v]) => map2Promise(v, k)).reduce((p, c) => p.concat(c))).then(ress => {
+    cb(filterData(ress))
+  })
 }
 /**
  * 模板元数据注册中心

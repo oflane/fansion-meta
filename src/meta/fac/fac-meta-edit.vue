@@ -162,23 +162,25 @@
           return
         }
         //  获取模板配置定义
-        let conf = temetas.getTemeta(template)
-        vm.temeta = conf
-        let comps = conf ? conf.comps : []
-        vm.comps = comps
-        if (template === vm.originTemplate) {
-          if (vm.metaData) {
-            vm.model = JSON.parse(vm.metaData.content)
+        temetas.getTemeta(template, conf => {
+          vm.temeta = conf
+          let comps = conf ? conf.comps : []
+          vm.comps = comps
+          if (template === vm.originTemplate) {
+            if (vm.metaData) {
+              vm.model = JSON.parse(vm.metaData.content)
+            }
+          } else {
+            vm.model = conf.defaultModel || {}
           }
-        } else {
-          vm.model = conf.defaultModel || {}
-        }
-        state.reset(vm, 'model')
-        if (comps && comps.length > 0) {
-          vm.setCurrentTab(comps[0].name)
-        } else {
-          vm.compFata = {}
-        }
+          state.reset(vm, 'model')
+          if (comps && comps.length > 0) {
+            vm.setCurrentTab(comps[0].name)
+          } else {
+            vm.compFata = {}
+          }
+        })
+
       },
       // 刷新当前模板配置数据
       refreshData (data) {

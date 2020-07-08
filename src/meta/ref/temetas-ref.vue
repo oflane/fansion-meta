@@ -64,8 +64,9 @@ export default {
   },
   methods: {
     search () {
-      const kw = this.$parent && this.$parent.getKeyword && this.$parent.getKeyword()
-      this.items = temetas.filter(kw, this.selTags, this.type).map(([k, v]) => ({ value: k, label: v.name, icon: v.icon || v.preview, preview: v.preview ? [v.preview] : (v.icon ? [v.icon] : [])}))
+      const vm = this
+      const kw = vm.$parent && vm.$parent.getKeyword && vm.$parent.getKeyword()
+      temetas.filter(rs => vm.items = rs.map(([k, v, t]) => ({ value: k, label: v.name, icon: v.icon || v.preview, preview: v.preview ? [v.preview] : (v.icon ? [v.icon] : [])})), kw, vm.selTags, this.type)
     },
     getData () {
       const r = this.current
