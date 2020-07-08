@@ -6,13 +6,14 @@ import fata from './fata'
 import fataOptions from './fata/options'
 import temetas from './temetas'
 import fase from 'fansion-base'
-import fanui from 'fansion-ui'
+import fui from 'fansion-ui'
 import metaDefaultMetaList from './meta/default/meta-list'
 import metaDefaultMetaEdit from './meta/default/meta-edit'
 import metaDefaultMetaGroupList from './meta/default/meta-group-list'
 import metaDefaultMetaGroupEdit from './meta/default/meta-group-edit'
 import metaOfentityOfeMetaEdit from './meta/ofentity/ofe-meta-edit'
 import metaFacFacMetaEdit from './meta/fac/fac-meta-edit'
+import temetasRef from './meta/ref/temetas-ref'
 /**
  * 安装方法
  * @param Vue vue对象
@@ -27,7 +28,8 @@ const install = function (Vue, opts = {}) {
     '/meta/default/meta-group-edit/:type/:group': metaDefaultMetaGroupEdit,
     '/meta/ofentity/ofe-meta-edit/:type/:group': metaOfentityOfeMetaEdit,
     '/meta/fac/fac-meta-edit/:catagory/:id': metaFacFacMetaEdit,
-    '/meta/fac/fac-meta-edit/:id': metaFacFacMetaEdit
+    '/meta/fac/fac-meta-edit/:id': metaFacFacMetaEdit,
+    '/meta/ref/temetas-ref': temetasRef
   }
   fase.init({
     pages: {
@@ -39,7 +41,8 @@ const install = function (Vue, opts = {}) {
   })
   fata.addFormControls(fataOptions.formControls)
   fata.addConfeta(fataOptions.confetas)
-  Vue.use(fanui)
+  Vue.use(fui)
+  fui.init({references: {refs: {'/meta/ref/temetas-ref': temetasRef}}})
   init(opts)
 }
 /**

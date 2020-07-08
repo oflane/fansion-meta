@@ -30,6 +30,7 @@
 
   const { furl, gson } = fase.rest
   const state = fase.state
+  const back = fase.util.backPrev
   const handler = fanui.handler
   const urls = {
     load: '/meta/load/:id',
@@ -86,11 +87,11 @@
             ]
           },
           {
-            type: 'combo',
+            type: 'reference',
             label: '模板: ',
             field: 'template',
             '@change': 'page.loadTemeta()',
-            ':options': 'page.templates'
+            'refTo': '/meta/ref/temetas-ref'
           },
           {
             type: 'input',
@@ -329,9 +330,9 @@
       cancel () {
         let vm = this
         if (vm.isChange()) {
-          handler.confirm(vm, () => vm.$router.back(), '数据发生变化, 确认放弃修改的数据?')
+          handler.confirm(vm, () => back(vm), '数据发生变化, 确认放弃修改的数据?')
         } else {
-          vm.$router.back()
+          back(vm)
         }
       }
     }
