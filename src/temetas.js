@@ -3,8 +3,10 @@
  */
 
 import fase from 'fansion-base'
+import {isFunction} from "fansion-base/src/utils/util";
 
 const {simulatePromise, isPromise, sure} = fase.util
+const module = fase.mod.module
 /**
  * 模板元数据中心
  * @type {{}}
@@ -49,8 +51,8 @@ const getTemeta = (name, cb, type) => {
     rs = temetas[type] ? temetas[type][name] : null
   } else {
     for (const t of Object.values(temetas)) {
-      if (t[1] && t[1][name]) {
-        rs = t[1][name]
+      if (t && t[name]) {
+        rs = t[name]
         break
       }
     }
@@ -80,7 +82,7 @@ const filterData = (data, keyword, tags) => data ? data.filter(([k, v, t]) => su
  * @param data 数据对象
  * @returns {*[]}
  */
-const map2Promise = (data, type) => data ? Object.entries(data).map(([k, v]) => isPromise(v) ? v.then(r => [k, r, type]) : simulatePromise([k, v, type])) : []
+const map2Promise = (data, type) => data ? Object.entries(data).map(([k, v]) => sure(isFunction(v) && (v = v())) && isPromise(v) ? v.then(r => [k, module(r), type]) : simulatePromise([k, v, type])) : []
 /**
  * 过滤对应的模板数据
  * @param keyword 关键字
@@ -91,7 +93,7 @@ const map2Promise = (data, type) => data ? Object.entries(data).map(([k, v]) => 
 const filter = (cb, keyword, tags, type) => {
   tags && (tags = Array.isArray(tags) ? tags : [tags])
   cb && Promise.all(type ? map2Promise(getTypeTemetas(type), type) : Object.entries(temetas).map(([k, v]) => map2Promise(v, k)).reduce((p, c) => p.concat(c))).then(ress => {
-    cb(filterData(ress))
+    cb(filterData(ress, keyword, tags))
   })
 }
 /**

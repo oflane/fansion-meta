@@ -111,8 +111,8 @@ module.exports = {
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../assert'),
-        to: 'assert/'
+        from: path.resolve(__dirname, '../asserts'),
+        to: 'asserts/'
       }
     ]),
     new webpack.DefinePlugin({
