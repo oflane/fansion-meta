@@ -142,6 +142,9 @@ export default {
       background: #f5f7fa;
       color: #909399;
     }
+    .el-image{
+      display: block;
+    }
   }
 }
 </style>
