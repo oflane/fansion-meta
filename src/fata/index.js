@@ -89,7 +89,7 @@ const buildSubPageFata = (component, modelName) => ({
  * @param cols 列数
  * @returns {{components: {type: string, cols: number, ':model': *, items: *}[]}}
  */
-const buildFormFata = (items, modelName, cols = 1) => ({
+const buildFormFata = (items, modelName = 'model', cols = 1) => ({
   components: [
     {
       type: 'fac-form',
@@ -251,5 +251,13 @@ export default {
    * @param name 组件类型名
    * @returns {*}
    */
-  getFormControls
+  getFormControls,
+  /**
+   * 根据控件配置数组构建fac元数据配置
+   * @param items 控件配置数组
+   * @param modelName 模型名称
+   * @param cols 列数
+   * @returns {{components: {type: string, cols: number, ':model': *, items: *}[]}}
+   */
+  buildFormFata
 }

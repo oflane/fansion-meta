@@ -255,11 +255,11 @@
       loadMeta () {
         let vm = this
         let id = this.$route.params.id
-        let catagory = this.$route.params.catagory
+        let category = this.$route.params.category
         vm.formLoading = true
         vm.pageLoading = true
         if (handler.isAdd(id)) {
-          vm.metaModel = { metaType: 'com.oflane.fac.model.FacMeta', catagory }
+          vm.metaModel = { metaType: 'com.oflane.fac.model.FacMeta', category }
           vm.pageLoading = false
           return
         }

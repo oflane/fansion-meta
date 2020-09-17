@@ -7,12 +7,13 @@ import fataOptions from './fata/options'
 import temetas from './temetas'
 import fase from 'fansion-base'
 import fui from 'fansion-ui'
-import metaDefaultMetaList from './meta/default/meta-list'
-import metaDefaultMetaEdit from './meta/default/meta-edit'
-import metaDefaultMetaGroupList from './meta/default/meta-group-list'
-import metaDefaultMetaGroupEdit from './meta/default/meta-group-edit'
-import metaOfentityOfeMetaEdit from './meta/ofentity/ofe-meta-edit'
-import metaFacFacMetaEdit from './meta/fac/fac-meta-edit'
+import metaList from './meta/default/meta-list'
+import metaEdit from './meta/default/meta-edit'
+import metaGroupList from './meta/default/meta-group-list'
+import metaGroupEdit from './meta/default/meta-group-edit'
+import ofeMetaEdit from './meta/ofentity/ofe-meta-edit'
+import facMetaEdit from './meta/fac/fac-meta-edit'
+import facMetaDialog from './meta/fac/fac-meta-dialog'
 import temetasRef from './meta/ref/temetas-ref'
 /**
  * 安装方法
@@ -22,13 +23,14 @@ import temetasRef from './meta/ref/temetas-ref'
 const install = function (Vue, opts = {}) {
   // 页面注册
   const pageComps = {
-    '/meta/default/meta-list/:type': metaDefaultMetaList,
-    '/meta/default/meta-edit/:type/:id': metaDefaultMetaEdit,
-    '/meta/default/meta-group-list/:type': metaDefaultMetaGroupList,
-    '/meta/default/meta-group-edit/:type/:group': metaDefaultMetaGroupEdit,
-    '/meta/ofentity/ofe-meta-edit/:type/:group': metaOfentityOfeMetaEdit,
-    '/meta/fac/fac-meta-edit/:catagory/:id': metaFacFacMetaEdit,
-    '/meta/fac/fac-meta-edit/:id': metaFacFacMetaEdit,
+    '/meta/default/meta-list/:type': metaList,
+    '/meta/default/meta-edit/:type/:id': metaEdit,
+    '/meta/default/meta-group-list/:type': metaGroupList,
+    '/meta/default/meta-group-edit/:type/:group': metaGroupEdit,
+    '/meta/ofentity/ofe-meta-edit/:type/:group': ofeMetaEdit,
+    '/meta/fac/fac-meta-edit/:catagory/:id': facMetaEdit,
+    '/meta/fac/fac-meta-edit/:id': facMetaEdit,
+    '/meta/fac/fac-meta-dialog': facMetaDialog,
     '/meta/ref/temetas-ref': temetasRef
   }
   fase.init({
