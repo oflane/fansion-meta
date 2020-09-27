@@ -7,8 +7,8 @@
  --version 1.0 2018-1-15
  -->
 <template>
-  <el-dialog :visible.sync='visible' :title='title' @before-close="beforeClose">
-    <editor ref="editor" :id="id" :category="category" :step-status.sync="step"/>
+  <el-dialog :visible.sync='visible' :title='title' @before-close="beforeClose" width="1200px">
+    <editor ref="editor" :name="name" :category="category" :step-status.sync="step"/>
     <div slot='footer'>
       <el-button @click='onPrev' v-if="step === 3 || step === 2">上一步</el-button>
       <el-button @click='onNext' v-if="step === 3 || step === 1">下一步</el-button>
@@ -20,15 +20,19 @@
 
 <script>
 import editor from './fac-meta-editor'
+import fui from 'fansion-ui'
 
 export default {
   name: 'FacMetaDialog',
+  dialog: true,
   props: {
-    id: String,
+    name: String,
     category: String
   },
   data () {
+    const title = fui.handler.isAdd(this.id) ? '添加页面' : '编辑页面'
     return {
+      title,
       step: 0,
       visible: true
     }
@@ -81,6 +85,13 @@ export default {
      */
     onSave () {
       this.$refs.editor.save()
+    },
+
+    /**
+     * 关闭对话框
+     */
+    onCancel () {
+      this.$dialogs.closeCurrent()
     }
   }
 }

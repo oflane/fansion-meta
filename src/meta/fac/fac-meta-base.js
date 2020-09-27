@@ -6,7 +6,7 @@
 import fata from '~/fata'
 
 const urls = {
-  load: '/meta/load/:id',
+  load: '/fac/load/:name',
   save: '/meta/save'
 }
 const mainComp = {

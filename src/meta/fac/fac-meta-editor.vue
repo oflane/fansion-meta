@@ -7,9 +7,9 @@
  --version 1.0 2018-1-15
  -->
 <template>
-    <div slot="body" class="fac-meta-editor clearfix" >
-      <div class="left-float" v-if="showStep">
-        <el-steps :active="currentStep" finish-status="success" direction="vertical" align-center @change="switchMeta">
+    <div class="fac-meta-editor clearfix" >
+      <div class="top-step" v-if="showStep">
+        <el-steps :active="currentStep" finish-status="success" align-center @change="switchMeta" align-center	>
           <el-step :title="item.label" v-for="item in comps" :key="item.name"></el-step>
         </el-steps>
       </div>
@@ -27,15 +27,15 @@ import fui from 'fansion-ui'
 import fm from './fac-meta-base'
 
 const { furl, gson } = fase.rest
-const callback = fase.util.callback
+const {sure, callback} = fase.util
 const state = fase.state
 const {isAdd, saveData, confirm} = fui.handler
 const msg = fui.msg
-const metaType = 'com.oflane.fac.model.FacMeta'
+const metaType = 'com.oflane.fasp.fac.model.FacMeta'
 export default {
   name: 'FacMetaEditor',
   props: {
-    id: String,
+    name: String,
     category: String,
   },
   data () {
@@ -84,14 +84,14 @@ export default {
      */
     loadMeta () {
       const vm = this
-      const category = this.category
+      const {name, category} = vm
       vm.pageLoading = true
-      if (handler.isAdd(this.id)) {
-        vm.mainModel = { metaType, category }
+      if (isAdd(name)) {
+        vm.refreshData({ metaType, category })
         vm.pageLoading = false
         return
       }
-      gson(furl(fm.urls.load, { id }), null, res => (vm.refreshData(res))).finally(() => sure(vm.pageLoading = false))
+      gson(furl(fm.urls.load, { name }), null, res => (vm.refreshData(res))).finally(() => sure(vm.pageLoading = false))
     },
     /**
      * 载入fac存储数据
@@ -107,6 +107,7 @@ export default {
         option1: data.option1,
         ts: data.ts,
       }
+      vm.mainModel = mainModel
       if (data.content) {
         const model = JSON.parse(data.content)
         model.id = data.id
@@ -119,6 +120,7 @@ export default {
         state.reset(vm, 'model')
       }
       state.reset(vm, 'mainModel')
+      vm.currentStep === 0 && vm.compModel !== vm.mainModel && vm.switchMeta(0)
     },
     /**
      * 加载模板配置
@@ -133,7 +135,7 @@ export default {
       // 获取模板配置定义
       temetas.getTemeta(template, conf => {
         vm.temeta = conf
-        vm.comps = [fm.mainFata, ...(conf ? conf.comps : [])]
+        vm.comps = [fm.mainComp, ...(conf ? conf.comps : [])]
         vm.refreshStepStatus()
         vm.showStep = vm.comps.length > 1
         vm.showStep ? vm.compClass = 'show-step' : ''
@@ -160,7 +162,7 @@ export default {
       const vm = this
       const comps = vm.comps
       if (compIndex === 0) {
-        this.switchMain()
+        vm.switchMain()
         return
       }
       const config = vm.temeta.config || {}
@@ -174,8 +176,7 @@ export default {
           state.reset(vm, 'model')
         }
       }
-      vm.compModel = compModel
-      vm.compFata = compFata
+      vm.switchComp(compModel, compFata)
     },
     /**
      * 切换组件
@@ -183,8 +184,9 @@ export default {
      * @param fata 组件配置元数据
      */
     switchComp(data, fata) {
-      this.compModel = data
-      this.compFata = fata
+      const vm = this
+      vm.compModel = data
+      vm.$nextTick(() => vm.compFata = fata)
       state.reset(this,'compModel')
     },
     /**
@@ -241,7 +243,7 @@ export default {
      */
     validateCurrent (cb) {
       const vm = this
-      vm.currentStep === 0 || state.isChange(vm, 'compModel') ? callback(vm.$refs.fmc, 'validate', cb) : cb
+      vm.currentStep === 0 || state.isChange(vm, 'compModel') ? callback(vm.$refs.fmc, 'validate', cb) : cb()
     },
 
     /**
@@ -255,7 +257,8 @@ export default {
      * 上一步方法
      */
     prev () {
-      this.validateCurrent(_ => vm.currentStep++)
+      const vm = this
+      this.validateCurrent(_ => vm.currentStep--)
     }
   }
 }
@@ -264,16 +267,19 @@ export default {
 .fac-meta-editor{
   position: relative;
   overflow: hidden;
-  .left-float {
-    float: left;
-    top: 20px;
-    width: 160px;
-  }
-  .show-step {
-    margin: 160px;
+  .top-step {
+    padding: 10px 30px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    margin: 0px;
+    position: relative;
+    background: none 0px 0px repeat scroll rgba(0, 0, 0, 0.02);
   }
   .fac-meta-component {
-    background: transparent;
+    min-height: 533px;
+    &.show-step {
+      min-height: 500px;
+    }
   }
 }
 </style>

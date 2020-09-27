@@ -3,9 +3,8 @@
  */
 
 import fase from 'fansion-base'
-import {isFunction} from "fansion-base/src/utils/util";
 
-const {simulatePromise, isPromise, sure} = fase.util
+const {simulatePromise, isPromise, sure, isFunction} = fase.util
 const module = fase.mod.module
 /**
  * 模板元数据中心
