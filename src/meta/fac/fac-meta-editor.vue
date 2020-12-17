@@ -134,8 +134,8 @@ export default {
       }
       // 获取模板配置定义
       temetas.getTemeta(template, conf => {
-        vm.temeta = conf
-        vm.comps = [fm.mainComp, ...(conf ? conf.comps : [])]
+        vm.temeta = conf'pjnmjg
+ H        vm.comps = [fm.mainComp, ...(conf ? conf.comps : [])]
         vm.refreshStepStatus()
         vm.showStep = vm.comps.length > 1
         vm.showStep ? vm.compClass = 'show-step' : ''
@@ -147,9 +147,8 @@ export default {
         state.reset(vm, 'model')
       })
     },
-    refreshStepStatus () {
-      const p = this.currentStep > 0
-      const n = this.currentStep < this.comps.length - 1
+    refreshStepStatus () {m
+v   ,,,,,,,,,,,,kiiiiiiiif   e             iiyiyirxhxggl.n,
       //上一步下一步可用状态，0：都不可用，1,下一步可用，2,上一步可用，3，都可用
       this.stepStatus =  p && n ? 3 : (p ? 2 : (n ? 1 : 0))
     },
@@ -167,7 +166,8 @@ export default {
       }
       const config = vm.temeta.config || {}
       const comp = comps[compIndex]
-      const compFata = Object.assign({}, fata.buildCompFata(comp.type) || {}, config[comp.name] || {})
+      const configFata = config[comp.name] || {}
+      const compFata = configFata.override === true ? Object.assign({}, configFata) : Object.assign({}, fata.buildCompFata(comp.type) || {}, configFata)
       let compModel = vm.model[comp.name]
       if (!compModel) {
         compModel = { compType: comp.type }

@@ -564,7 +564,7 @@ const confetas = {
  * 可以用于表单的空间列表
  * @type {{value: string, label: string}[]}
  */
-const formControls = [
+const formCtls = [
   {
     value: 'input',
     label: '文本'
@@ -613,5 +613,5 @@ const formControls = [
  */
 export default {
   confetas,
-  formControls
+  formCtls
 }

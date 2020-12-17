@@ -4,7 +4,7 @@
 <template>
   <div>
     <el-radio-group v-model="selType" v-if="types.length > 0">
-      <el-radio-button v-for="t in tags" :value="t.value" :label="t.label"></el-radio-button>
+      <el-radio-button v-for="t in types" :value="t.value" :label="t.label"></el-radio-button>
     </el-radio-group>
     <el-checkbox-group v-model="selTags" v-if="tags.length > 0">
       <el-checkbox v-for="tag in tags" :label="tag" :key="tag">{{tag}}</el-checkbox>
@@ -36,7 +36,7 @@ export default {
     type: String
   },
   data () {
-    const types = temetas.types
+    const types = this.type ? [] : temetas.types
     const tags = temetas.tags
     return {
       types,

@@ -6,6 +6,7 @@ import fase from 'fansion-base'
 
 const {simulatePromise, isPromise, sure, isFunction} = fase.util
 const module = fase.mod.module
+const handler = d => d.temeta ? d.temeta : d
 /**
  * 模板元数据中心
  * @type {{}}
@@ -15,7 +16,7 @@ const temetas = {}
  * 模板类型
  * @type {{}}
  */
-const types = []
+const types = [{value: 'app', label: '应用'}, {value: 'ref', label: '引用'}]
 
 /**
  * 分类标签
@@ -26,7 +27,7 @@ const tags = []
  * 添加模板元数据
  * @param data 组件配置的元数据
  */
-const addTemeta = fase.builder.typeRegister(temetas)
+const addTemeta = fase.builder.typeRegister(temetas, 'type', 'name', handler, 'app')
 
 /**
  * 添加模板类型
