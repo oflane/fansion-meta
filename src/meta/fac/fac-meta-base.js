@@ -14,44 +14,48 @@ const mainComp = {
   type: 0,
   label: '基础信息'
 }
-const mainFata = fata.buildFormFata([
-  {
-    type: 'input',
-    label: '名称: ',
-    field: 'name',
-    validation: [
-      {
-        required: true,
-        message: '实体名称不能为空',
-        trigger: 'blur'
-      }
-    ]
-  },
-  {
-    type: 'input',
-    label: '显示名称: ',
-    field: 'label',
-    validation: [
-      {
-        required: true,
-        message: '实体显示名称不能为空',
-        trigger: 'blur'
-      }
-    ]
-  },
-  {
+const mainFata = (category) => {
+  const template = {
     type: 'reference',
     label: '模板: ',
     field: 'template',
     '@change': 'page.loadTemeta()',
     refTo: '/meta/ref/temetas-ref'
-  },
-  {
-    type: 'input',
-    label: '访问地址: ',
-    field: 'option1'
   }
-])
+  category && (template[':refParam'] = {type: category})
+  return fata.buildFormFata([
+    {
+      type: 'input',
+      label: '名称: ',
+      field: 'name',
+      validation: [
+        {
+          required: true,
+          message: '实体名称不能为空',
+          trigger: 'blur'
+        }
+      ]
+    },
+    {
+      type: 'input',
+      label: '显示名称: ',
+      field: 'label',
+      validation: [
+        {
+          required: true,
+          message: '实体显示名称不能为空',
+          trigger: 'blur'
+        }
+      ]
+    },
+    template,
+    {
+      type: 'input',
+      label: '访问地址: ',
+      field: 'option1'
+    }
+  ])
+}
 export default {
   urls,
   mainComp,

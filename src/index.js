@@ -15,6 +15,8 @@ import fui from 'fansion-ui'
 const install = function (Vue, opts = {}) {
   fase.init(options.fase(opts))
   Vue.use(fui)
+  const inits = fase.plugin.getInstallCache('fansion-meta')
+  inits && inits.forEach(init)
   init(options.self)
   init(opts)
 }
@@ -23,8 +25,9 @@ const install = function (Vue, opts = {}) {
  * @param opts
  */
 const init = (opts = {}) => {
+  fase.util.isFunction(opts) && (opts = opts())
   opts.temetas && temetas.addTemeta(opts.temetas)
-  opts.fatas && fata.addConfeta(opts.fatas)
+  opts.confetas && fata.addConfeta(opts.confetas)
   opts.formCtls && fata.addFormControls(opts.formCtls)
 }
 /**

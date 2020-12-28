@@ -82,7 +82,11 @@ const filterData = (data, keyword, tags) => data ? data.filter(([k, v, t]) => su
  * @param data 数据对象
  * @returns {*[]}
  */
-const map2Promise = (data, type) => data ? Object.entries(data).map(([k, v]) => sure(isFunction(v) && (v = v())) && isPromise(v) ? v.then(r => [k, module(r), type]) : simulatePromise([k, v, type])) : []
+const map2Promise = (data, type) => data ? Object.entries(data).map(([k, v]) => sure(isFunction(v) && (v = v())) && isPromise(v) ? v.then(r => {
+  const vr = module(r)
+  data[k] = vr
+  return [k, vr, type]
+}) : simulatePromise([k, v, type])) : []
 /**
  * 过滤对应的模板数据
  * @param keyword 关键字

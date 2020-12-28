@@ -49,7 +49,7 @@ export default {
       metaData: null, //fac元数据，存储模型
       mainModel: {}, //主表模型
       model: {},//fac页面元数据，真正的fac元数据通过存储模型content生成
-      compFata: fm.mainFata,//当前组件元数据
+      compFata: {},//当前组件元数据
       compModel: {},//当前组件配置模型
       originTemplate: null, //原配置模板
       pageLoading: true,
@@ -134,8 +134,8 @@ export default {
       }
       // 获取模板配置定义
       temetas.getTemeta(template, conf => {
-        vm.temeta = conf'pjnmjg
- H        vm.comps = [fm.mainComp, ...(conf ? conf.comps : [])]
+        vm.temeta = conf
+        vm.comps = [fm.mainComp, ...(conf ? conf.comps : [])]
         vm.refreshStepStatus()
         vm.showStep = vm.comps.length > 1
         vm.showStep ? vm.compClass = 'show-step' : ''
@@ -147,8 +147,9 @@ export default {
         state.reset(vm, 'model')
       })
     },
-    refreshStepStatus () {m
-v   ,,,,,,,,,,,,kiiiiiiiif   e             iiyiyirxhxggl.n,
+    refreshStepStatus () {
+      const p = this.currentStep > 0
+      const n = this.currentStep < this.comps.length - 1
       //上一步下一步可用状态，0：都不可用，1,下一步可用，2,上一步可用，3，都可用
       this.stepStatus =  p && n ? 3 : (p ? 2 : (n ? 1 : 0))
     },
@@ -193,7 +194,7 @@ v   ,,,,,,,,,,,,kiiiiiiiif   e             iiyiyirxhxggl.n,
      * 切换到基础信息组件
      */
     switchMain() {
-      this.switchComp(this.mainModel, fm.mainFata)
+      this.switchComp(this.mainModel, fm.mainFata(this.category))
     },
     /**
      * 整体判断数据是否发生变化（主表变化，组件配置变化）

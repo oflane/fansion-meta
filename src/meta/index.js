@@ -8,7 +8,7 @@ import metaGroupEdit from './default/meta-group-edit'
 import ofeMetaEdit from './ofentity/ofe-meta-edit'
 import facMetaEdit from './fac/fac-meta-edit'
 import facMetaDialog from './fac/fac-meta-dialog'
-import temetasRef from './ef/temetas-ref'
+import temetasRef from './ref/temetas-ref'
 
 /**
  * 页面集合

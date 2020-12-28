@@ -497,6 +497,30 @@ const confetas = {
   'fac-form': facFormConfig,
   'simple-table': facTableConfig,
   'fac-table': facTableConfig,
+  'box-list': [
+    {
+      field: 'label',
+      label: '显示字段'
+    },
+    {
+      type: 'combo',
+      field: 'cols',
+      ':options': [{value: 3, label: '三列'}, {value: 4, label: '四列'}, {value: 5, label: '五列'}, {value: 6, label: '六列'},{value: 7, label: '七列'}, {value: 8, label: '八列'}],
+      label: '显示列数'
+    },
+    {
+      field: 'icon',
+      label: '显示图标字段'
+    },
+    {
+      field: 'image',
+      label: '显示图片字段'
+    },
+    {
+      field: 'previewImage',
+      label: '预览图片字段'
+    }
+  ],
   search: [
     {
       field: 'placeholder',
@@ -556,6 +580,41 @@ const confetas = {
     {
       field: ':iconClass',
       label: '图标'
+    }
+  ],
+  'simple-tree': [
+    {
+      field: 'url',
+      label: '加载地址'
+    },
+    {
+      field: 'label',
+      label: '显示字段'
+    },
+    {
+      field: 'icon',
+      label: '图标'
+    },
+    {
+      field: 'search',
+      label: '查找地址'
+    },
+    {
+      field: 'rootName',
+      label: '根节点名称'
+    },
+    {
+      field: 'isLeaf',
+      label: '叶子节点标志'
+    },
+    {
+      field: 'keyword',
+      label: '检索条件'
+    },
+    {
+      type: 'switch-box',
+      field: 'lazy',
+      label: '是否懒加载'
     }
   ]
 }
