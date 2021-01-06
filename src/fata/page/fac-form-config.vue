@@ -126,7 +126,8 @@
             label: '模型:',
             field: 'modelMetaName',
             labelField: 'modelMetaLabel',
-            placeholder: '请选择元数据模型'
+            placeholder: '请选择元数据模型',
+            refTo: 'fasm:base:ref:entity-ref'
           },
           {
             type: 'tags',

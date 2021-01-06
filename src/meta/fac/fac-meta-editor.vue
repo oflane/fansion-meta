@@ -105,6 +105,7 @@ export default {
         label: data.label,
         metaType: data.metaType,
         option1: data.option1,
+        category: vm.category,
         ts: data.ts,
       }
       vm.mainModel = mainModel
@@ -212,7 +213,10 @@ export default {
         vm.$message('数据未发生变化！')
         return
       }
-      vm.validateCurrent(() => {
+      vm.validateCurrent((valid) => {
+        if (!valid) {
+          return
+        }
         vm.pageLoading = true
         const data = Object.assign({}, vm.mainModel)
         const template = data.template
@@ -244,7 +248,7 @@ export default {
      */
     validateCurrent (cb) {
       const vm = this
-      vm.currentStep === 0 || state.isChange(vm, 'compModel') ? callback(vm.$refs.fmc, 'validate', cb) : cb()
+      vm.currentStep === 0 || state.isChange(vm, 'compModel') ? callback(vm.$refs.fmc, 'validate', cb) : cb(true)
     },
 
     /**
@@ -252,14 +256,14 @@ export default {
      */
     next () {
       const vm = this
-      vm.validateCurrent(_ => vm.currentStep++)
+      vm.validateCurrent(valid => valid && vm.currentStep++)
     },
     /**
      * 上一步方法
      */
     prev () {
       const vm = this
-      this.validateCurrent(_ => vm.currentStep--)
+      this.validateCurrent(valid => valid && vm.currentStep--)
     }
   }
 }

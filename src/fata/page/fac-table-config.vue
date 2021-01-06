@@ -10,7 +10,7 @@
           模型:
         </label>
         <div class="bar_control">
-          <fac-reference :model="model" field="modelMetaName" labelField="modelMetaNameLabel" />
+          <fac-reference :model="model" field="modelMetaName" labelField="modelMetaNameLabel" ref-to="fasm:base:ref:entity-ref"/>
         </div>
       </div>
       <el-button-group class="pull-right">

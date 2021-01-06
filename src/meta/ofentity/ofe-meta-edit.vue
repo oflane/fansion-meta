@@ -155,7 +155,7 @@
         items: [
           {
             type: 'input',
-            label: '名称: ',
+            label: '实体名称: ',
             field: 'name',
             validation: [
               {
@@ -168,7 +168,7 @@
           {
             type: 'input',
             label: '显示名称: ',
-            field: 'label',
+            field: 'name',
             validation: [
               {
                 'required': true,
@@ -208,12 +208,12 @@
         items: [
           {
             type: 'input',
-            label: '名称: ',
+            label: '字段名称: ',
             field: 'name',
             validation: [
               {
                 'required': true,
-                'message': '实体名称不能为空',
+                'message': '字段编码不能为空',
                 'trigger': 'blur'
               }
             ]
@@ -225,7 +225,7 @@
             validation: [
               {
                 'required': true,
-                'message': '实体显示名称不能为空',
+                'message': '字段显示名称不能为空',
                 'trigger': 'blur'
               }
             ]
