@@ -521,6 +521,70 @@ const confetas = {
       label: '预览图片字段'
     }
   ],
+  'blocks-items': [
+    {
+      field: 'label',
+      label: '显示字段'
+    },
+    {
+      type: 'combo',
+      field: 'cols',
+      ':options': [{value: 3, label: '三列'}, {value: 4, label: '四列'}, {value: 5, label: '五列'}],
+      label: '显示列数'
+    },
+    {
+      field: 'blockLabel',
+      label: '块标签字段'
+    },
+    {
+      field: 'blockIcon',
+      label: '块标题图标'
+    },
+    {
+      field: 'topColor',
+      label: '块顶部颜色'
+    },
+    {
+      field: 'addLabel',
+      label: '添加按钮文字'
+    },
+    {
+      field: 'addIcon',
+      label: '添加按钮图标'
+    },
+    {
+      field: 'moreLabel',
+      label: '更多按钮名称'
+    },
+    {
+      field: 'children',
+      label: '条目字段'
+    },
+    ,
+    {
+      field: 'itemLabel',
+      label: '条目标签字段'
+    },
+    {
+      field: 'addIcon',
+      label: '条目图标'
+    },
+    {
+      type: 'switch-box',
+      field: 'hasBlockClose',
+      label: '块删除按钮'
+    },
+    {
+      type: 'switch-box',
+      field: 'hasItemClose',
+      label: '条目删除按钮'
+    },
+    {
+      type: 'switch-box',
+      field: 'hasAdd',
+      label: '使用添加按钮'
+    }
+  ],
   search: [
     {
       field: 'placeholder',
