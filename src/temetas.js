@@ -47,17 +47,20 @@ const addTag = fase.builder.collection(tags)
  */
 const getTemeta = (name, cb, type) => {
   let rs = null
+  let qu = null
   if (type) {
-    rs = temetas[type] ? temetas[type][name] : null
+    qu = temetas[type]
+    rs = qu ? qu[name] : null
   } else {
     for (const t of Object.values(temetas)) {
       if (t && t[name]) {
+        qu = t
         rs = t[name]
         break
       }
     }
   }
-  isPromise(rs) ? rs.then(cb) : cb(rs)
+  rs && sure(isFunction(rs) && (rs = rs())) && isPromise(rs) ? rs.then(r => sure(qu[name] = module(r)) && qu[name]).then(cb) : cb(rs)
   return rs
 }
 
