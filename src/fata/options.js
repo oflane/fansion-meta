@@ -504,7 +504,7 @@ const confetas = {
     },
     {
       type: 'combo',
-      field: 'cols',
+      field: ':cols',
       ':options': [{value: 3, label: '三列'}, {value: 4, label: '四列'}, {value: 5, label: '五列'}, {value: 6, label: '六列'},{value: 7, label: '七列'}, {value: 8, label: '八列'}],
       label: '显示列数'
     },
