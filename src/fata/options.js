@@ -485,13 +485,29 @@ const confetas = {
       label: '分页大小列表'
     },
     {
+      type: 'tags',
+      field: 'pageSizes',
+      label: '每页大小列表'
+    },
+    {
       type: 'input.number',
       field: 'pageSize',
-      label: '分页大小'
+      label: '没也记录大小'
     },
     {
       field: ':layout',
       label: '布局'
+    }
+  ],
+  slice: [
+    {
+      field: ':model',
+      label: '分片结果'
+    },
+    {
+      type: 'input.number',
+      field: 'pageSize',
+      label: '分页大小'
     }
   ],
   'fac-form': facFormConfig,
@@ -509,16 +525,21 @@ const confetas = {
       label: '显示列数'
     },
     {
+      type: 'switch-box',
+      field: 'staticIcon',
+      label: '静态图标'
+    },
+    {
       field: 'icon',
-      label: '显示图标字段'
+      label: '显示图标'
     },
     {
       field: 'image',
-      label: '显示图片字段'
+      label: '显示图片'
     },
     {
       field: 'previewImage',
-      label: '预览图片字段'
+      label: '预览图片'
     }
   ],
   'blocks-items': [
