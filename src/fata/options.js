@@ -319,7 +319,7 @@ const confetas = {
     },
     {
       field: 'refTo',
-      label: '参照路径'
+      label: '引用路径'
     },
     {
       type: 'switch-box',
@@ -743,7 +743,7 @@ const formCtls = [
   },
   {
     value: 'reference',
-    label: '参照'
+    label: '引用'
   },
   {
     value: 'date',
