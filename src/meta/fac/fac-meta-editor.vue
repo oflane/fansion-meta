@@ -248,7 +248,7 @@ export default {
      */
     validateCurrent (cb) {
       const vm = this
-      vm.currentStep === 0 || state.isChange(vm, 'compModel') ? callback(vm.$refs.fmc, 'validate', cb) : cb(true)
+      vm.currentStep === 0 || state.isChange(vm, 'compModel') ? callback(vm.$refs.fmc, 'validate', cb, true) : cb(true)
     },
 
     /**

@@ -89,27 +89,63 @@ const buildSubPageFata = (component, modelName) => ({
  * @param cols 列数
  * @returns {{components: {type: string, cols: number, ':model': *, items: *}[]}}
  */
-const buildFormFata = (items, modelName = 'model', cols = 1) => ({
-  components: [
-    {
+const buildFormFata = (items, modelName = 'model', cols = 1) => {
+  let form
+  if(typeof items === 'object' && Array.isArray(items.items)) {
+    form = Object.assign({
       type: 'fac-form',
       cols,
       ref: 'subPage',
       ':model': modelName,
+    }, items)
+  } else if (Array.isArray(items)) {
+    form = {
+      type: 'fac-form',
+        cols,
+        ref: 'subPage',
+      ':model': modelName,
       items
     }
-  ],
-  methods: {
-    validate (cb) {
-      const sub = this.$refs.subPage
-      if (sub && sub.validate) {
-        sub.validate(cb)
-      } else {
-        cb.call(this, true)
+  } else if(typeof items === 'object' && Array.isArray(items.components) && items.components.length > 0 && Array.isArray(items.components[0].items)) {
+    if(items.methods !== null &&  items.methods.validate !== null){
+      return items
+    }
+    if(!items.components[0].ref) {
+      return items
+    }
+    const formRef = items.components[0].ref
+    return Object.assign({}, items, {
+      methods: {
+        validate(cb) {
+          const sub = this.$refs[formRef]
+          if (sub && sub.validate) {
+            sub.validate(cb)
+          } else {
+            cb.call(this, true)
+          }
+        }
+
+      }
+    })
+  } else {
+    return items
+  }
+  return {
+    components: [
+      form
+    ],
+    methods: {
+      validate (cb) {
+        const sub = this.$refs.subPage
+        if (sub && sub.validate) {
+          sub.validate(cb)
+        } else {
+          cb.call(this, true)
+        }
       }
     }
   }
-})
+}
 
 /**
  * 根据组件类型和tag特征生成组件的表单界面fata数据
