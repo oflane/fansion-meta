@@ -9,6 +9,7 @@ import ofeMetaEdit from './ofentity/ofe-meta-edit'
 import facMetaEdit from './fac/fac-meta-edit'
 import facMetaDialog from './fac/fac-meta-dialog'
 import temetasRef from './ref/temetas-ref'
+import iconssRef from './ref/icons-ref'
 
 /**
  * 页面集合
@@ -24,5 +25,6 @@ export default {
   '/meta/fac/fac-meta-edit/:catagory/:id': facMetaEdit,
   '/meta/fac/fac-meta-edit/:id': facMetaEdit,
   '/meta/fac/fac-meta-dialog': facMetaDialog,
-  '/meta/ref/temetas-ref': temetasRef
+  '/meta/ref/temetas-ref': temetasRef,
+  '/meta/ref/icons-ref': iconssRef
 }

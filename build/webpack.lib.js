@@ -20,9 +20,9 @@ function resolve (dir) {
 }
 function externals () {
   const exts = {
-    vue: 'Vue',
-    'element-ui': 'ELEMENT',
-    'vue-router': 'VueRouter'
+    vue: 'vue',
+    'element-ui': 'element-ui',
+    'vue-router': 'vue-router'
   }
   options.modules.forEach(function(e){
     exts[e] = e
@@ -56,7 +56,8 @@ module.exports = {
   externals: [
     externals(), nodeExternals()
   ],
-  devtool: 'source-map',
+  // devtool: 'cheap-module-eval-source-map',
+  // //devtool: 'source-map',
   optimization: {
     minimize: true,
     minimizer: [
@@ -97,6 +98,7 @@ module.exports = {
       },
       {
         test: /\.json$/,
+        type: 'javascript/auto',
         loader: 'json-loader'
       },
       {
