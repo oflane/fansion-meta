@@ -56,8 +56,7 @@ module.exports = {
   externals: [
     externals(), nodeExternals()
   ],
-  // devtool: 'cheap-module-eval-source-map',
-  // //devtool: 'source-map',
+  devtool: 'source-map',
   optimization: {
     minimize: true,
     minimizer: [

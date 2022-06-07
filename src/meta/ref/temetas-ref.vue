@@ -90,7 +90,7 @@ export default {
       return r
     },
     reference (item) {
-      this.$parent.$closeReference(item)
+      this.$closeReference(item)
     },
     reset () {
       const list = this.$refs.list
@@ -107,18 +107,18 @@ export default {
       this.$closeReference()
     },
     onClear () {
-      this.reset()
+      this.$closeReference({})
     },
     show () {
       this.visible = true
-      this.$emit('open', this.$refs.content)
+      this.$emit('open', this)
     },
     isVisible () {
       return this.visible
     },
     hide () {
       this.visible = false
-      this.$emit('close', this.$refs.content)
+      this.$emit('close', this)
     }
   }
 }
