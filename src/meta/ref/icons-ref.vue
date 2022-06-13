@@ -87,13 +87,13 @@
         vm.data = !keyword ? icons : icons.filter(icon => icon.value.indexOf(keyword) > -1)
         vm.pageData.totalElements = vm.data.length
         vm.$nextTick(_ => vm.sizeChange())
-
       },
       /**
        * 图标分页，当前页变化
        */
       pageChange (){
         const {_pageNo, _pageSize} = this.$refs.pagination.getParameters()
+        console.log('===' + _pageNo)
         const end = _pageNo *_pageSize
         this.items = this.data.slice((_pageNo-1)*_pageSize, end > this.data.length ? this.data.length : end)
       },
@@ -101,7 +101,6 @@
        * 图标分页，分页大小变化
        */
       sizeChange () {
-        this.$refs.pagination && this.$refs.pagination.reset()
         this.pageChange()
       },
       /**
