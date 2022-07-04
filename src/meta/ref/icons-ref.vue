@@ -8,7 +8,7 @@
           <el-radio-button label="image">自定义图片</el-radio-button>
         </el-radio-group>
       </div>
-      <div class="ref-search"><fac-search ref="search" @search="search" size="small" /><button @click="search"><i class="el-icon-refresh"></i></button></div>
+      <div class="ref-search"><fac-search ref="search" @search="search" size="small" css="custom-search"/><button @click="search"><i class="el-icon-refresh"></i></button></div>
     </template>
     <div v-if="this.selType==='icon'">
       <div class="min-height-400 padding-content">
@@ -178,3 +178,9 @@
     }
   }
 </script>
+<style>
+.custom-search {
+  width: 200px!important;
+  position: relative;
+}
+</style>
