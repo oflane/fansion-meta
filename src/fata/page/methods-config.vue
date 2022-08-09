@@ -1,8 +1,8 @@
 <template>
-  <fac-list :model="model.apps" sortable label="name">
+  <fac-list :model="model.apps" label="name">
     <template slot="header">
       <li class="actions">
-        <el-link icon="fa fa-plus" type="primary" @click="onSelectMethod">添加应用</el-link>
+        <el-link icon="fa fa-plus" type="primary" @click="onAddMethod">添加方法</el-link>
       </li>
     </template>
     <template v-slot="{item, index}">
@@ -44,7 +44,7 @@
     title: '自定义分组'
   }
   export default {
-    name: 'WorkbenchGroupDetail',
+    name: 'MethodsConfig',
     label: '工作台分组详情',
     props: {
       id: String,
